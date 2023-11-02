@@ -20,10 +20,12 @@ def get_city_temperature(city):
       return 17
    if city == "San Francisco":
       return 16
+   if city == "New York":
+      return 14
 
 def get_city_weather(city):
 
-  sky_condition = None
+  sky_condition = "sunny"
 
   if city == "Sao Paulo":
      sky_condition = "cloudy"
@@ -32,4 +34,4 @@ def get_city_weather(city):
 
   temperature = get_city_temperature(city)
 
-  return str(temperature) + " degrees and " + sky_condition
+  return f"{temperature} degrees and {sky_condition}"
