@@ -1,0 +1,127 @@
+diff --git a/part1/question1.py b/part1/question1.py
+index 5c99fdb..601695d 100644
+--- a/part1/question1.py
++++ b/part1/question1.py
+@@ -22,0 +23,2 @@ def get_city_temperature(city):
++   if city == "New York":
++      return 14
+@@ -26 +28 @@ def get_city_weather(city):
+-  sky_condition = None
++  sky_condition = "sunny"
+@@ -35 +37 @@ def get_city_weather(city):
+-  return str(temperature) + " degrees and " + sky_condition
+\ No newline at end of file
++  return f"{temperature} degrees and {sky_condition}"
+diff --git a/part1/question2.py b/part1/question2.py
+index 34a9b01..4f929a4 100644
+--- a/part1/question2.py
++++ b/part1/question2.py
+@@ -18 +18,3 @@
+-swapper = None
++def swapper(tuple):
++  for index in range(len(tuple)):
++     return (tuple[1], tuple[0])
+diff --git a/part1/question3.py b/part1/question3.py
+index 04fab99..220f00a 100644
+--- a/part1/question3.py
++++ b/part1/question3.py
+@@ -27,0 +28,28 @@
++class Oven():
++  def __init__(self):
++    self.ingredients = []
++
++  def add(self, item = None):
++    if item is not None:
++      self.ingredients.append(item)
++      print(f"Ingredientes: {self.ingredients}")
++  
++  def freeze(self):
++    pass
++
++  def boil(self):
++    pass
++
++  def wait(self):
++    pass
++
++  def get_output(self):
++    if "lead" in self.ingredients and "mercury" in self.ingredients:
++      return "gold"
++    elif "water" in self.ingredients and "air" in self.ingredients:
++      return "snow"
++    elif "cheese" in self.ingredients and "dough" in self.ingredients and "tomato" in self.ingredients:
++      return "pizza"
++    else:
++      return "unknown"
++
+@@ -30 +58 @@ def make_oven():
+-  None
++  return Oven()
+diff --git a/part1/question3_test.py b/part1/question3_test.py
+index 6cb6c89..0dee4e2 100644
+--- a/part1/question3_test.py
++++ b/part1/question3_test.py
+@@ -0,0 +1,2 @@
++from question3 import make_oven, alchemy_combine
++
+diff --git a/part1/question4.py b/part1/question4.py
+index 1e1b2bf..8fafb1b 100644
+--- a/part1/question4.py
++++ b/part1/question4.py
+@@ -27 +27,4 @@ sql_pets_owned_by_nobody = """
+-Your SQL here.
++SELECT name AS "pet name", species, age
++FROM animals
++LEFT JOIN people_animals ON animal_id = people_animals.pet_id
++WHERE owner_id IS NULL;
+@@ -37 +40,6 @@ sql_pets_older_than_owner = """
+-Your SQL here.
++SELECT COUNT(*) AS "Pets older than their owners"
++FROM animals
++LEFT JOIN people_animals ON animals.animal_id = people_animals.pet_id
++LEFT JOIN people ON people_animals.owner_id = people.person_id
++WHERE owner_id IS NOT NULL 
++AND animals.age > people.age;
+@@ -46 +54,12 @@ sql_only_owned_by_bessie = """
+-Your SQL here.
++SELECT people.name, animals.name, animals.species
++FROM animals
++LEFT JOIN people_animals ON animals.animal_id = people_animals.pet_id
++LEFT JOIN people ON people_animals.owner_id = people.person_id
++WHERE people.name = "bessie" 
++AND person_id = (
++	SELECT person_id
++    FROM people
++    WHERE name = "bessie"
++) AND NOT EXISTS (
++    SELECT * FROM people_animals WHERE pet_id = animals.animal_id AND owner_id != people.person_id
++);
+diff --git a/part1/question5.py b/part1/question5.py
+index f76654f..aa01677 100644
+--- a/part1/question5.py
++++ b/part1/question5.py
+@@ -23 +23,6 @@ sql_create_favorite_foods = """
+-Your SQL here.
++CREATE TABLE favorite_foods(
++	food_id INTEGER NOT NULL,
++    name TEXT NOT NULL,
++    vegetarian INTEGER NOT NULL,
++    PRIMARY KEY(food_id)
++);
+@@ -33 +38,5 @@ sql_alter_tables_with_favorite_food = """
+-Your SQL here.
++ALTER TABLE animals
++ADD COLUMN favorite_food_id INTEGER;
++
++ALTER TABLE people
++ADD COLUMN favorite_food_id INTEGER;
+@@ -43 +52,4 @@ sql_select_all_vegetarian_pets = """
+-Your SQL here.
++SELECT a.name AS "pet name", fo.name AS "food name"
++FROM animals AS a
++LEFT JOIN favorite_foods AS fo ON a.favorite_food_id = fo.food_id
++WHERE fo.vegetarian = 1;
+diff --git a/part1/quiz_pets b/part1/quiz_pets
+new file mode 100644
+index 0000000..8314422
+Binary files /dev/null and b/part1/quiz_pets differ
